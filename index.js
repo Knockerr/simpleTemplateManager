@@ -7,60 +7,110 @@ function getHtmlElement(element, scope = document) {
     else {
         const base = scope.content || scope;
         elementSearchResult =
+            base.querySelector(element) ||
             base.querySelector(`#${element}`) ||
-            base.querySelector(`.${element}`) ||
-            base.querySelector(element);
+            base.querySelector(`.${element}`);
         if (elementSearchResult && elementSearchResult instanceof HTMLElement) return elementSearchResult;
     }
     console.error("The given element could not be found in the HTML file.");
     return null;
 }
 
-class TemplateElement {
+function capitalize(str) {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export class EventManager {
+    constructor(element) {
+        this.templateElement = element;
+        const possibleEventsArray = [
+            "click",
+            "dblclick",
+            "mouseenter",
+            "mouseleave",
+            "mouseover",
+            "mouseout",
+            "keydown",
+            "keyup",
+            "keypress",
+            "input",
+            "change",
+            "focus",
+            "load",
+            "DOMContentLoaded"
+        ];
+        possibleEventsArray.forEach((event) => {
+            this["on" + capitalize(event)] = (onEventTrigger) => {
+                this.templateElement.eventsCache[event] = onEventTrigger;
+                return this.templateElement.template;
+            }
+        })
+    }
+
+    addEventListener(event, onEventTrigger) {
+        /**
+         * onEventTrigger has to be a reachable function.
+         */
+        this.element.eventsCache[event] = onEventTrigger;
+    }
+}
+
+export class TemplateElement {
     constructor(template, element) {
         this.template = template;
         this.element = element;
+        this.eventsCache = {};
     }
 
     setInnerHtml(content) {
         this.element.innerHTML = content;
-        void this.save();
+        void this.apply();
         return this.template;
     }
 
     setValue(value) {
         this.element.value = value;
-        void this.save();
+        void this.apply();
         return this.template;
     }
 
     setPlaceholder(placeholder) {
         this.element.placeholder = placeholder;
-        void this.save();
+        void this.apply();
         return this.template;
     }
 
     setHref(link) {
         this.element.href = link;
-        void this.save();
+        void this.apply();
         return this.template;
     }
 
-    setTarget(target){
+    setTarget(target) {
         this.element.target = target;
-        void this.save();
+        void this.apply();
         return this.template;
     }
 
     setSrc(imgSrc) {
         this.element.src = imgSrc;
-        void this.save();
+        void this.apply();
         return this.template;
     }
 
-    
+    get eventManager() {
+        return new EventManager(this);
+    }
 
-    save() {
+    loadEvent() {
+        Object.keys(this.eventsCache).forEach(event => {
+            this.element.addEventListener(event, this.eventsCache[event]);
+        });
+
+    }
+
+    apply() {
         const parentClone = this.template.clone;
         const elementQuerySelector = this.element.id || this.element.className;
         const target = getHtmlElement(elementQuerySelector, parentClone);
@@ -69,7 +119,7 @@ class TemplateElement {
 }
 
 
-class Template {
+export class Template {
     /**
      * The given template can be an HTMLTemplateElement or the ID/class of the template.
      */
@@ -79,18 +129,24 @@ class Template {
             this.template = getHtmlElement(template);
         }
         this.clone = this.template.content.cloneNode(true);
+        this.templateElementsCache = [];
     }
 
     getElement(el) {
         const element = getHtmlElement(el, this.template);
-        return new TemplateElement(this, element);
+        const TE = new TemplateElement(this, element);
+        this.templateElementsCache.push(TE);
+        return TE;
     }
 
     addInHtml(destination) {
         const dest = getHtmlElement(destination);
         dest.appendChild(this.clone);
+
+        this.templateElementsCache.forEach((te) => {
+            const elementInDest = getHtmlElement(te.element.id || `.${te.element.className}`, dest);
+            te.element = elementInDest;
+            te.loadEvent();
+        });
     }
 }
-
-window.Template = Template;
-window.TemplateElement = TemplateElement;

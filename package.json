@@ -1,0 +1,29 @@
+{
+  "name": "simple-template-manager",
+  "version": "1.0.0",
+  "description": "A complete and easy to use package to help managing and using HTMl native templates.",
+  "main": "index.js",
+  "scripts": {
+    "test": "live-server --open=demo.html",
+    "demo": "live-server --open=demo.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Knockerr/simpleTemplateManager.git"
+  },
+  "keywords": [
+    "html",
+    "template",
+    "javascript",
+    "utility"
+  ],
+  "author": "Knocker",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Knockerr/simpleTemplateManager/issues"
+  },
+  "homepage": "https://github.com/Knockerr/simpleTemplateManager#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}

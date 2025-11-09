@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <!-- Template -->
+    <template id="testTemplate">
+        <div class="templateWrapper"
+            style="border: 1px solid #000000; border-radius: 15px; display:flex; flex-direction:column; overflow: hidden; padding: 20px; box-sizing: border-box;">
+            <h1 id="templateTitle"></h1>
+            <p class="templateParagraphClass"></p>
+            <p id="templateParagraphId"></p>
+            <input type="text" class="templateInput">
+            <a href="demo.html" id="templateLink">Lien!</a>
+            <button id="demoButton">Say hello in console!</button>
+        </div>
+    </template>
+
+    <!-- Core -->
+
+    <div class="container">
+
+    </div>
+
+    <script type="module">
+        // Importing module
+        import { Template, TemplateElement, EventManager } from './index.js';
+
+        // Getting the template
+        const testTemplateElement = document.getElementById("testTemplate");
+
+        // Getting HTML objects
+        const myLink = testTemplateElement.content.getElementById("templateLink");
+        const templateParagraphElement = testTemplateElement.content.getElementById("templateLink");
+
+        // Creating the Template object.
+        const testTemplate = new Template(testTemplateElement);
+
+
+        // Using the library to easely edit various parameters
+        testTemplate.getElement("templateTitle").setInnerHtml("Hey! Title updated from JS..")
+            .getElement("templateParagraphClass").setInnerHtml("You can get elements using class names,")
+            .getElement("#templateParagraphId").setInnerHtml("Ids,")
+            .getElement(templateParagraphElement).setInnerHtml("or even Html elements directly!")
+            .getElement(myLink).setInnerHtml("You can even change links!")
+            .getElement(myLink).setHref("https://google.com");
+
+
+        function demoFunction() {
+            console.info("Hey! You just clicked on the button!");
+        }
+
+        testTemplate.getElement("demoButton")
+            .eventManager.onClick(demoFunction);
+
+        // Add the template to the Html
+        testTemplate.addInHtml("container");
+    </script>
+</body>
+
+</html>
