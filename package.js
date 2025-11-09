@@ -28,7 +28,7 @@ class TemplateElement {
         return this.template;
     }
 
-    setValueHTML(value) {
+    setValue(value) {
         this.element.value = value;
         void this.save();
         return this.template;
