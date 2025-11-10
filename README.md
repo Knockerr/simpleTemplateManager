@@ -2,28 +2,28 @@
     <img src="https://capsule-render.vercel.app/api?type=cylinder&height=150&color=gradient&text=STM&desc=Simple%20Template%20Manager&fontSize=55&descSize=25&fontAlignY=47&descAlignY=70&fontColor=fff">
 </p>
 
-###### A complete and easy to use package to interact with **native HTML templates**
+#### A complete and easy to use package to interact with **native HTML templates**
 ---
-## ⬇️ Installation
-#### Install the package
+# ⬇️ Installation
+### Install the package
 ```npm
 npm i simple-template-manager
 ```
-#### Import the package:
+### Import the package:
 ```js
 import { Template } from 'simple-template-manager';
 ```
 
-## ❓ How to use
+# ❓ How to use
 Simple Template Manager allows you to easily manage template using a Template object.
-#### Create a plceholder Object
+### Create a plceholder Object
 ```js
 const testTemplate = new Template(testTemplateElement);
 ```
 
 <small>Note: when asked to give an element, you can either use the element id, its class (with or without a dot or a hashtag) or directly the HTML element, it doesn't matter.</small>
 
-#### Edit template elements
+### Edit template elements
 To do so, get the element you would like to edit, execute all the modifications you would like and end the transformations chain using `.apply`. You can then repeat this operation any number of time you would like.
 Exemple:
 ```js
@@ -36,7 +36,7 @@ testTemplate.getElement("templateTitle")
         .setInnerHtml("google.com link")
         .setHref("https://google.com").apply;
 ```
-#### Add events listeners
+### Add events listeners
 You can add events listeners almost the same way you edit elements. You just have to specify that you want to use the eventManager system using `.events`.
 You can then use one of the availables premade events, or add your own using `addEventListener()`.
 Example:
@@ -49,14 +49,14 @@ testTemplate.getElement("templateTitle")
     .getElement("templateInput")
         
 ``` 
-#### Add the Template in HTML
+### Add the Template in HTML
 You're almost done! Now that your placeholder is correctly defined, you can add it wherever you want in the HTML file! To do so, use `.addInHyml(destination)`.
 Exampe:
 ```js
 testTemplate.addInHtml("templateContainer");
 ```
 
-#### Complete example:
+### Complete example:
 ```js
 // Creating the template.
 const testTemplate = new Template(testTemplateElement);
@@ -84,11 +84,11 @@ testTemplate.getElement("demoButton")
 testTemplate.addInHtml("templateContainer");
 ```
 
-## Helping the project
+# Helping the project
  > Pull request and code review are open and greatly appreciated! Do not hesitate to get in touch or open github issues if you have ideas on how to make this package better or if you see any errors in the code!
 
 ---
-##### Contact;
+### Contact;
 * Mail: `knocker.pro@proton.me`
 * Discord: `.knocker.`
 
