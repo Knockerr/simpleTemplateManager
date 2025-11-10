@@ -54,6 +54,10 @@ export class EventManager {
          */
         this.element.eventsCache[event] = onEventTrigger;
     }
+
+     get apply(){
+            return this.template;
+        }
 }
 
 export class TemplateElement {
@@ -65,41 +69,45 @@ export class TemplateElement {
 
     setInnerHtml(content) {
         this.element.innerHTML = content;
-        void this.apply();
-        return this.template;
+        void this.#apply();
+        return this;
     }
 
     setValue(value) {
         this.element.value = value;
-        void this.apply();
-        return this.template;
+        void this.#apply();
+        return this;
     }
 
     setPlaceholder(placeholder) {
         this.element.placeholder = placeholder;
-        void this.apply();
-        return this.template;
+        void this.#apply();
+        return this;
     }
 
     setHref(link) {
         this.element.href = link;
-        void this.apply();
-        return this.template;
+        void this.#apply();
+        return this;
     }
 
     setTarget(target) {
         this.element.target = target;
-        void this.apply();
-        return this.template;
+        void this.#apply();
+        return this;
     }
 
     setSrc(imgSrc) {
         this.element.src = imgSrc;
-        void this.apply();
+        void this.#apply();
+        return this;
+    }
+
+    get apply(){
         return this.template;
     }
 
-    get eventManager() {
+    get events() {
         return new EventManager(this);
     }
 
@@ -110,7 +118,7 @@ export class TemplateElement {
 
     }
 
-    apply() {
+    #apply() {
         const parentClone = this.template.clone;
         const elementQuerySelector = this.element.id || this.element.className;
         const target = getHtmlElement(elementQuerySelector, parentClone);
