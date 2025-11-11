@@ -3,28 +3,33 @@
 </p>
 
 #### A complete and easy to use package to interact with **native HTML templates**
+<br/>
+
+### Warning:
+I know a lot of frameworks exist and allow to create components way more easily. This project should be considered as a learning project to help me get better at JS and learn how to publish a NPM package rather than a serious project.
+
 ---
 # ⬇️ Installation
-### Install the package
+### Install the package;
 ```npm
 npm i simple-template-manager
 ```
-### Import the package:
+### Importing the package:
 ```js
 import { Template } from 'simple-template-manager';
 ```
 
 # ❓ How to use
 Simple Template Manager allows you to easily manage template using a Template object.
-### Create a plceholder Object
+### Create a Template object
 ```js
 const testTemplate = new Template(testTemplateElement);
 ```
 
-<small>Note: when asked to give an element, you can either use the element id, its class (with or without a dot or a hashtag) or directly the HTML element, it doesn't matter.</small>
+<small>Note: When asked to give an element, you can either use the element id, its class (with or without a dot or a hashtag), or directly the HTML element, it doesn't matter.</small>
 
 ### Edit template elements
-To do so, get the element you would like to edit, execute all the modifications you would like and end the transformations chain using `.apply`. You can then repeat this operation any number of time you would like.
+To do so, get the element you would like to edit, apply all the modifications you would like and end the transformations chain using `.apply`. You can then repeat this operation any number of time you would like.
 Exemple:
 ```js
 testTemplate.getElement("templateTitle")
@@ -32,26 +37,24 @@ testTemplate.getElement("templateTitle")
     .getElement("templateInput")
         .setValue("Value of an input")
         .setPlaceholder("Placeholder").apply
-    .getElement(myLink)
-        .setInnerHtml("google.com link")
+    .getElement("templateLink")
+        .setInnerHtml("Clique to go to google.com")
         .setHref("https://google.com").apply;
 ```
 ### Add events listeners
-You can add events listeners almost the same way you edit elements. You just have to specify that you want to use the eventManager system using `.events`.
-You can then use one of the availables premade events, or add your own using `addEventListener()`.
+You can add events listeners almost the same way you edit elements. You just have to specify that you want to use the eventManager system using `.events` beforehand.
+You can then use one of the [availables premade events](#availableEvents), or add any other one using `addEventListener()`.
 Example:
 ```js
 testTemplate.getElement("templateTitle")
         .events.onClick(() => {
-            console.info("Title clicked!
-            )}
-            ).apply
-    .getElement("templateInput")
-        
+            console.info("Title clicked!);
+            }).apply
+    .getElement("templateInput"); 
 ``` 
 ### Add the Template in HTML
-You're almost done! Now that your placeholder is correctly defined, you can add it wherever you want in the HTML file! To do so, use `.addInHyml(destination)`.
-Exampe:
+You're almost done! Now that your placeholder is correctly defined, you can add it wherever you want in the HTML file! To do so, use `.addInHtml(destination)`.
+Example:
 ```js
 testTemplate.addInHtml("templateContainer");
 ```
