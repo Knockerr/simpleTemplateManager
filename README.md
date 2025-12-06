@@ -87,6 +87,10 @@ testTemplate.getElement("demoButton")
 testTemplate.addInHtml("templateContainer");
 ```
 
+# Premade events: <a name="availableEvents" id="availableEvents"></a>
+* *click*, *dblclick*, *mouseenter*, *mouseleave*, *mouseover*, *mouseout*, *keydown*, *keyup*, *keypress*, *input*, *change*, *focus*, *load*, *DOMContentLoaded*
+
+
 # Helping the project
  > Pull request and code review are open and greatly appreciated! Do not hesitate to get in touch or open github issues if you have ideas on how to make this package better or if you see any errors in the code!
 
