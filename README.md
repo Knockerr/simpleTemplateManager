@@ -9,7 +9,7 @@
 I know a lot of frameworks exist and allow to create components way more easily. This project should be considered as a learning project to help me get better at JS and learn how to publish a NPM package rather than a serious project.
 
 ---
-# ⬇️ Installation
+# Installation
 ### Install the package;
 ```npm
 npm i simple-template-manager
@@ -19,7 +19,7 @@ npm i simple-template-manager
 import { Template } from 'simple-template-manager';
 ```
 
-# ❓ How to use
+# How to use
 Simple Template Manager allows you to easily manage template using a Template object.
 ### Create a Template object
 ```js
